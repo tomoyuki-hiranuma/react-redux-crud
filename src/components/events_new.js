@@ -14,11 +14,17 @@ class EventsNew extends Component {
         {touched && error && <span>{error}</span>}
       </div>
     );
-  }
+  };
+
+  async onSubmit(values) {
+    await this.props.postEvent(values)
+    this.props.history.push('/')
+  };
 
   render() {
+    const { handleSubmit } = this.props;
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <div>
           <Field label="Title" name="title" type='text' component={this.renderField} />
         </div>
@@ -41,8 +47,8 @@ const validate = values => {
   if(!values.body) errors.body = "Enter a body. please";
   return errors
 }
-// const mapDispatchToProps = ({ postEvents });
+const mapDispatchToProps = ({ postEvent });
 
-export default connect(null, null)(
+export default connect(null, mapDispatchToProps)(
   reduxForm({ validate, form: 'eventNewForm' })(EventsNew)
 )
