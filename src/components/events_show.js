@@ -16,6 +16,11 @@ class EventShow extends Component {
     );
   };
 
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    if (id) this.props.getEvent(id);
+  }
+
   async onDeleteClick() {
     const { id } = this.props.match.params;
     await this.props.deleteEvent(id);
@@ -53,8 +58,12 @@ const validate = values => {
   if(!values.body) errors.body = "Enter a body. please";
   return errors
 }
-const mapDispatchToProps = ({ deleteEvent });
+const mapDispatchToProps = ({ deleteEvent, getEvent });
+const mapStateToProps = (state, ownProps) => {
+  const event = state.eventsReducer[ownProps.match.params.id]
+  return { initialValues: event, event }
+};
 
-export default connect(null, mapDispatchToProps)(
-  reduxForm({ validate, form: 'eventShowForm' })(EventShow)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  reduxForm({ validate, form: 'eventShowForm', enableReinitilize: true })(EventShow)
 )
