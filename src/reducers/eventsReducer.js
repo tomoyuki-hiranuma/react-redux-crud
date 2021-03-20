@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { READ_EVENTS, DELETE_EVENT, READ_EVENT } from "../actions";
+import { READ_EVENTS, DELETE_EVENT, READ_EVENT, UPDATE_EVENT, CREATE_EVENT } from "../actions";
 
 const eventsReducer = (state = {}, action) => {
   switch(action.type) {
@@ -11,6 +11,11 @@ const eventsReducer = (state = {}, action) => {
     case READ_EVENT:
       const data = action.response.data;
       return { ...state, [data.id]: data }
+    case UPDATE_EVENT:
+      const updated_data = action.response.data;
+      return { ...state };
+    case CREATE_EVENT:
+
     default:
       return state
   }

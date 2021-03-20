@@ -26,13 +26,13 @@ class EventShow extends Component {
     await this.props.deleteEvent(id);
   }
 
-  async onSubmit(values) {
-    // await this.props.postEvent(values)
+  async onSubmit(value) {
+    await this.props.putEvent(value)
     this.props.history.push('/')
   };
 
   render() {
-    const { handleSubmit, pristine, submitting } = this.props;
+    const { handleSubmit, pristine, submitting, invalid } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <div>
@@ -42,7 +42,7 @@ class EventShow extends Component {
           <Field label="Body" name="body" type='text' component={this.renderField} />
         </div>
         <div>
-          <input type="submit" value="Submit" disabled={pristine || submitting} />
+          <input type="submit" value="Update" disabled={pristine || submitting || invalid} />
           <Link to='/'>Cancel</Link>
           <Link to='/' onClick={this.onDeleteClick.bind(this)}>Delete</Link>
         </div>
@@ -58,7 +58,7 @@ const validate = values => {
   if(!values.body) errors.body = "Enter a body. please";
   return errors
 }
-const mapDispatchToProps = ({ deleteEvent, getEvent });
+const mapDispatchToProps = ({ deleteEvent, getEvent, putEvent });
 const mapStateToProps = (state, ownProps) => {
   const event = state.eventsReducer[ownProps.match.params.id]
   return { initialValues: event, event }
