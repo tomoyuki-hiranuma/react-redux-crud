@@ -12,7 +12,6 @@ const eventsReducer = (state = {}, action) => {
       const data = action.response.data;
       return { ...state, [data.id]: data }
     case UPDATE_EVENT:
-      const updated_data = action.response.data;
       return { ...state };
     case CREATE_EVENT:
 
