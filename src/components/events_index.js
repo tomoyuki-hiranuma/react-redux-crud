@@ -4,6 +4,8 @@ import _ from 'lodash';
 import { Link } from 'react-router-dom';
 
 import { readEvents } from '../actions';
+import { green } from '@material-ui/core/colors';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 class EventsIndex extends React.Component {
   componentDidMount() {
@@ -42,7 +44,9 @@ class EventsIndex extends React.Component {
             {this.renderEvents()}
           </tbody>
         </table>
-        <Link to='/events/new'>New Event</Link>
+        <Link to='/events/new'>
+          <AddCircleIcon style={{ color: green[500], fontSize: 40 }} />
+        </Link>
       </React.Fragment>
     )
   }
