@@ -5,6 +5,10 @@ import { Field, reduxForm } from 'redux-form';
 
 import { postEvent } from '../actions';
 
+import TextField from '@material-ui/core/TextField';
+import BlockIcon from '@material-ui/icons/Block';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
 class EventsNew extends Component {
   renderField(field) {
     const { input, label, type, meta: { touched, error } } = field;
@@ -33,7 +37,7 @@ class EventsNew extends Component {
         </div>
         <div>
           <input type="submit" value="Submit" disabled={pristine || submitting} />
-          <Link to='/'>Cancel</Link>
+          <Link to='/'><BlockIcon color="secondary" /></Link>
         </div>
       </form>
     )
